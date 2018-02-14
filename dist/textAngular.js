@@ -1059,14 +1059,15 @@ angular.module('textAngular.DOM', ['textAngular.factories'])
                     tagEnd = '</a>',
                     _selection = taSelection.getSelection();
                 if(_selection.collapsed){
-                    //console.log('collapsed');
-                    // insert text at selection, then select then just let normal exec-command run
-                    taSelection.insertHtml(tagBegin + options + tagEnd, topNode);
-                }else if(rangy.getSelection().getRangeAt(0).canSurroundContents()){
-                    var node = angular.element(tagBegin + tagEnd)[0];
-                    rangy.getSelection().getRangeAt(0).surroundContents(node);
-                }
-                return;
+					// insert text at selection, then select then just let normal exec-command run
+					// MODIFICATIONS
+					taSelection.insertHtml('<a target="_blank" href="' + options + '">' + options + '</a>', topNode);
+					// END MODIFICATIONS
+				}else if(rangy.getSelection().getRangeAt(0).canSurroundContents()){
+					var node = angular.element('<a target="_blank" href="' + options + '"></a>')[0];
+					rangy.getSelection().getRangeAt(0).surroundContents(node);
+				}
+				return;
             }else if(command.toLowerCase() === 'inserthtml'){
                 //console.log('inserthtml');
                 taSelection.insertHtml(options, topNode);
