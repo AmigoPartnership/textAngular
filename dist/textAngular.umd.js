@@ -536,7 +536,7 @@ angular.module('textAngularSetup', [])
         }
     });
     taRegisterTool('redo', {
-        iconclass: 'fa fa-repeat',
+        iconclass: 'fas fa-redo',
         tooltiptext: taTranslations.redo.tooltip,
         action: function(){
             return this.$editor().wrapSelection("redo", null);
@@ -877,7 +877,7 @@ angular.module('textAngularSetup', [])
     };
 
     taRegisterTool('insertImage', {
-        iconclass: 'fa fa-picture-o',
+        iconclass: 'far fa-image',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function(){
             var imageLink;
@@ -911,7 +911,7 @@ angular.module('textAngularSetup', [])
         }
     });
     taRegisterTool('insertVideo', {
-        iconclass: 'fa fa-youtube-play',
+        iconclass: 'fab fa-youtube',
         tooltiptext: taTranslations.insertVideo.tooltip,
         action: function(){
             var urlPrompt;
