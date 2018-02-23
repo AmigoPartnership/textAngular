@@ -2,6 +2,7 @@
   "name": "textAngular",
   "version": "1.5.16",
   "main": [
+    "../bower_components/angular-material",
     "./dist/textAngular.js",
     "./dist/textAngular-sanitize.js",
     "./dist/textAngularSetup.js",
