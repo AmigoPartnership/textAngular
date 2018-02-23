@@ -864,13 +864,12 @@ angular.module('textAngularSetup', ["ngMaterial"])
         iconclass: 'far fa-image',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function(){
-          $mdDialog.show({
-            // locals: {this: this}
-            controller: DialogController,
-            templateUrl: 'views/articles/insertImage.tmpl.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose: true,
-          })
+//           $mdDialog.show({
+//             controller: DialogController,
+//             templateUrl: 'views/articles/insertImage.tmpl.html',
+//             parent: angular.element(document.body),
+//             clickOutsideToClose: true
+//           })
 
           var thisTest = this;
 
