@@ -864,30 +864,74 @@ angular.module('textAngularSetup', [])
         iconclass: 'far fa-image',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function(){
-            var imageLink;
-            imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http://');
-            if(imageLink && imageLink !== '' && imageLink !== 'http://'){
-                /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
-                // block javascript here
-                if (!blockJavascript(imageLink)) {
-                    if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
-                        // due to differences in implementation between FireFox and Chrome, we must move the
-                        // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
-                        // With this change, both FireFox and Chrome behave the same way!
-                        taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
-                    }
-                    // In the past we used the simple statement:
-                    //return this.$editor().wrapSelection('insertImage', imageLink, true);
-                    //
-                    // However on Firefox only, when the content is empty this is a problem
-                    // See Issue #1201
-                    // Investigation reveals that Firefox only inserts a <p> only!!!!
-                    // So now we use insertHTML here and all is fine.
-                    // NOTE: this is what 'insertImage' is supposed to do anyway!
-                    var embed = '<img src="' + imageLink + '">';
-                    return this.$editor().wrapSelection('insertHTML', embed, true);
+          $mdDialog.show({
+            // locals: {this: this}
+            controller: DialogController,
+            templateUrl: 'views/articles/insertImage.tmpl.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+          })
+
+          let thisTest = this;
+
+          function DialogController($scope, $mdDialog, Category, $timeout, $filter, Media) {
+            Media.getAllMedia()
+            .then(function(response) {
+              var data = response.data.data;
+              var error = response.data.errors;
+              if(error === undefined && data !== null) {
+                $scope.media = data.mediaRead.data;
+                $scope.totalPages = []
+                for (i = 1; i < data.mediaRead.totalPages + 1; i++) {
+                  $scope.totalPages.push(i);
                 }
+              } else {
+                ngDialog.open({
+                  template: error[0].message,
+                  plain: true
+                });
+              }
+            });
+
+            $scope.hide = function() {
+              $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+              $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+              $mdDialog.hide(answer);
+            };
+
+            $scope.getImageUrl = function(url) {
+              var imageLink = url;
+              // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
+              // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
+              /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
+              // block javascript here
+              if (!blockJavascript(imageLink)) {
+                if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
+                  // due to differences in implementation between FireFox and Chrome, we must move the
+                  // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
+                  // With this change, both FireFox and Chrome behave the same way!
+                  taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
+                }
+                // In the past we used the simple statement:
+                //return this.$editor().wrapSelection('insertImage', imageLink, true);
+                //
+                // However on Firefox only, when the content is empty this is a problem
+                // See Issue #1201
+                // Investigation reveals that Firefox only inserts a <p> only!!!!
+                // So now we use insertHTML here and all is fine.
+                // NOTE: this is what 'insertImage' is supposed to do anyway!
+                var embed = '<img class="img-responsive" src="' + imageLink + '">';
+                $mdDialog.hide();
+                return thisTest.$editor().wrapSelection('insertHTML', embed, true);
+              }
+              // }
+
             }
+          }
         },
         onElementSelect: {
             element: 'img',
