@@ -436,8 +436,8 @@ angular.module('textAngularSetup', ["ngMaterial"])
         }
     };
 }])
-.run(['taRegisterTool', '$window', 'taTranslations', 'taSelection', 'taToolFunctions', '$sanitize', 'taOptions', '$log',
-    function(taRegisterTool, $window, taTranslations, taSelection, taToolFunctions, $sanitize, taOptions, $log){
+.run(['taRegisterTool', '$window', 'taTranslations', 'taSelection', 'taToolFunctions', '$sanitize', 'taOptions', '$log', '$mdDialog',
+    function(taRegisterTool, $window, taTranslations, taSelection, taToolFunctions, $sanitize, taOptions, $log, $mdDialog){
     // test for the version of $sanitize that is in use
     // You can disable this check by setting taOptions.textAngularSanitize == false
     var gv = {}; $sanitize('', gv);
@@ -859,23 +859,17 @@ angular.module('textAngularSetup', ["ngMaterial"])
         }
         return false;
     };
-        $mdDialog.show({
-            controller: DialogController,
-            templateUrl: 'views/articles/insertImage.tmpl.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose: true
-          })
 
     taRegisterTool('insertImage', {
         iconclass: 'far fa-image',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function(){
-//           $mdDialog.show({
-//             controller: DialogController,
-//             templateUrl: 'views/articles/insertImage.tmpl.html',
-//             parent: angular.element(document.body),
-//             clickOutsideToClose: true
-//           })
+          $mdDialog.show({
+            controller: DialogController,
+            templateUrl: 'views/articles/insertImage.tmpl.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true
+          })
 
           var thisTest = this;
 
