@@ -364,7 +364,7 @@ angular.module('textAngularSetup', [])
             container.append(buttonGroup);
 
             buttonGroup = angular.element('<div class="btn-group">');
-            var remove = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><i class="fa fa-trash-o"></i></button>');
+            var remove = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><i class="far fa-trash-alt"></i></button>');
             remove.on('click', function(event){
                 event.preventDefault();
                 $element.remove();
