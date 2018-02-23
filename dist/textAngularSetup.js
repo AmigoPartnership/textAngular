@@ -893,10 +893,6 @@ angular.module('textAngularSetup', [])
               }
             });
 
-            $scope.getImageUrl = function(url) {
-              var imageLink = url;
-            };
-
             $scope.hide = function() {
               $mdDialog.hide();
             };
@@ -928,6 +924,7 @@ angular.module('textAngularSetup', [])
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
                 var embed = '<img class="img-responsive" src="' + imageLink + '">';
+                 $mdDialog.hide();
                 return thisTest.$editor().wrapSelection('insertHTML', embed, true);
               }
               // }
