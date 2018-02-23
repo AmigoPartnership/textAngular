@@ -863,13 +863,13 @@ angular.module('textAngularSetup', ["ngMaterial"])
     taRegisterTool('insertImage', {
         iconclass: 'far fa-image',
         tooltiptext: taTranslations.insertImage.tooltip,
-        action: function(){
-//           $mdDialog.show({
-//             controller: DialogController,
-//             templateUrl: 'views/articles/insertImage.tmpl.html',
-//             parent: angular.element(document.body),
-//             clickOutsideToClose: true
-//           })
+        action: function($mdDialog){
+          $mdDialog.show({
+            controller: DialogController,
+            templateUrl: 'views/articles/insertImage.tmpl.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true
+          })
 
           var thisTest = this;
 
