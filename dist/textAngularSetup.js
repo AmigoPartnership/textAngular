@@ -872,7 +872,7 @@ angular.module('textAngularSetup', [])
             clickOutsideToClose: true,
           })
 
-          let thisTest = this;
+          var thisTest = this;
 
           function DialogController($scope, $mdDialog, Category, $timeout, $filter, Media) {
             Media.getAllMedia()
