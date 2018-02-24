@@ -904,7 +904,6 @@ angular.module('textAngularSetup', ["ngMaterial"])
               
               console.log('sanity check');
              $scope.getMediaByPage = function(pageNumber) {
-      $rootScope.loading  = true;
       Media.getMediaByPage(pageNumber)
       .then((function(response) {
         var data = response.data.data;
@@ -922,7 +921,6 @@ angular.module('textAngularSetup', ["ngMaterial"])
           });
         }
       }));
-      $rootScope.loading  = false;
     };
                 $scope.select = function(item) {
       $scope.selected = item;
