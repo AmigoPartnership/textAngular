@@ -924,6 +924,14 @@ angular.module('textAngularSetup', ["ngMaterial"])
       }));
       $rootScope.loading  = false;
     };
+                $scope.select = function(item) {
+      $scope.selected = item;
+    };
+
+    $scope.isActive = function(item) {
+      return $scope.selected === item;
+    };
+
               
             $scope.getImageUrl = function(url) {
               var imageLink = url;
