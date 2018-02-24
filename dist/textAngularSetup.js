@@ -902,7 +902,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
               $mdDialog.hide(answer);
             };
               
-              
+              console.log('sanity check');
              $scope.getMediaByPage = function(pageNumber) {
       $rootScope.loading  = true;
       Media.getMediaByPage(pageNumber)
