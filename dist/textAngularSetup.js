@@ -901,6 +901,30 @@ angular.module('textAngularSetup', ["ngMaterial"])
             $scope.answer = function(answer) {
               $mdDialog.hide(answer);
             };
+              
+              
+             $scope.getMediaByPage = function(pageNumber) {
+      $rootScope.loading  = true;
+      Media.getMediaByPage(pageNumber)
+      .then((function(response) {
+        var data = response.data.data;
+        var error = response.data.errors;
+        if(error === undefined && data !== null) {
+          $scope.media = data;
+          $scope.totalPages = []
+          for (i = 1; i < data.mediaRead.totalPages + 1; i++) {
+            $scope.totalPages.push(i);
+          }
+        } else {
+          ngDialog.open({
+            template: error[0].message,
+            plain: true
+          });
+        }
+      }));
+      $rootScope.loading  = false;
+    };
+              
             $scope.getImageUrl = function(url) {
               var imageLink = url;
               // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
