@@ -103,7 +103,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
         ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
         ['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
-        ['html', 'insertImage', 'insertLink', 'insertVideo', 'wordcount', 'charcount']
+        ['html', 'classBlue', 'insertImage', 'insertLink', 'insertVideo', 'wordcount', 'charcount']
     ],
     classes: {
         focussed: "focussed",
@@ -236,6 +236,9 @@ angular.module('textAngularSetup', ["ngMaterial"])
     },
     clear: {
         tooltip: 'Clear formatting'
+    },
+    classBlue: {
+        tooltip: 'Paragraph'
     },
     insertImage: {
         dialogPrompt: 'Please enter an image URL to insert',
@@ -478,6 +481,15 @@ angular.module('textAngularSetup', ["ngMaterial"])
             return this.$editor().wrapSelection("formatBlock", "<P>");
         },
         activeState: function(){ return this.$editor().queryFormatBlockState('p'); }
+    });
+    taRegisterTool('classBlue', {
+        iconclass: 'fas fa-eye-dropper',
+        tooltiptext: taTranslations.classBlue.tooltip,
+        action: function(){
+          var blueClass = "color-o2-light-blue"
+            return this.$editor().wrapSelection("formatBlock", "<p class="+ blueClass +">");
+        },
+        activeState: function(){ return this.$editor().queryFormatBlockState('blueClass'); }
     });
     // key: pre -> taTranslations[key].tooltip, taTranslations[key].buttontext
     taRegisterTool('pre', {
@@ -950,7 +962,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // Investigation reveals that Firefox only inserts a <p> only!!!!
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
-                var embed = '<img class="img-responsive" src="' + imageLink + '">';
+                var embed = '<img class="img-responsive" src="'+ imageLink + '">';
                  $mdDialog.hide();
                 return thisTest.$editor().wrapSelection('insertHTML', embed, true);
               }
