@@ -901,28 +901,26 @@ angular.module('textAngularSetup', ["ngMaterial"])
             $scope.answer = function(answer) {
               $mdDialog.hide(answer);
             };
-              
-              console.log('sanity check');
              $scope.getMediaByPage = function(pageNumber) {
-      Media.getMediaByPage(pageNumber)
-      .then((function(response) {
-        var data = response.data.data;
-        var error = response.data.errors;
-        if(error === undefined && data !== null) {
-          $scope.media = data;
-          $scope.totalPages = []
-          for (i = 1; i < data.mediaRead.totalPages + 1; i++) {
-            $scope.totalPages.push(i);
-          }
-        } else {
-          ngDialog.open({
-            template: error[0].message,
-            plain: true
-          });
-        }
-      }));
-    };
-                $scope.select = function(item) {
+                Media.getMediaByPage(pageNumber)
+                .then((function(response) {
+                  var data = response.data.data;
+                  var error = response.data.errors;
+                  if(error === undefined && data !== null) {
+                    $scope.media = data;
+                    $scope.totalPages = []
+                    for (i = 1; i < data.mediaRead.totalPages + 1; i++) {
+                      $scope.totalPages.push(i);
+                    }
+                  } else {
+                    ngDialog.open({
+                      template: error[0].message,
+                      plain: true
+                    });
+                  }
+                }));
+              };
+                          $scope.select = function(item) {
       $scope.selected = item;
     };
 
@@ -930,7 +928,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
       return $scope.selected === item;
     };
 
-              
+
             $scope.getImageUrl = function(url) {
               var imageLink = url;
               // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
