@@ -942,12 +942,14 @@ angular.module('textAngularSetup', ["ngMaterial"])
 
 
             $scope.getImageUrl = function(url) {
+
               var imageLink = url;
               // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
               // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
               /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
               // block javascript here
               if (!blockJavascript(imageLink)) {
+
                 if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
                   // due to differences in implementation between FireFox and Chrome, we must move the
                   // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
@@ -962,7 +964,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // Investigation reveals that Firefox only inserts a <p> only!!!!
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
-                var embed = '<img class="img-responsive" src="'+ imageLink + '">';
+                var embed = '<media id="'+ imageLink + '"></media>';
                  $mdDialog.hide();
                 return thisTest.$editor().wrapSelection('insertHTML', embed, true);
               }
@@ -972,7 +974,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
           }
         },
         onElementSelect: {
-            element: 'img',
+            element: 'media',
             action: taToolFunctions.imgOnSelectAction
         }
     });
