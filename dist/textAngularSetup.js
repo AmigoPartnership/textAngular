@@ -964,6 +964,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // Investigation reveals that Firefox only inserts a <p> only!!!!
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
+                console.log('<media id="'+ imageLink + '"></media>');
                 var embed = '<media id="'+ imageLink + '"></media>';
                  $mdDialog.hide();
                 return thisTest.$editor().wrapSelection('insertHTML', embed, true);
