@@ -964,7 +964,6 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // Investigation reveals that Firefox only inserts a <p> only!!!!
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
-                console.log('<media class="' + title + '" id="'+ imageLink + '"></media>');
                 var embed = '<media class="' + title + '" id="'+ imageLink + '"></media>';
                  $mdDialog.hide();
                 return thisTest.$editor().wrapSelection('insertHTML', embed, true);
@@ -1044,15 +1043,44 @@ angular.module('textAngularSetup', ["ngMaterial"])
                     /* istanbul ignore else: if it's invalid don't worry - though probably should show some kind of error message */
                     if (url) {
 
+                           function converMedia(url){
+                              var pattern1 = /(?:http?s?:\/\/)?(?:www\.)?(?:vimeo\.com)\/?(.+)/g;
+                              var pattern2 = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
+                              var pattern3 = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(?:jpg|jpeg|gif|png))/gi;
 
+                              if(pattern1.test(url)){
+                                 var replacement = '<iframe width="560" height="315" src="//player.vimeo.com/video/$1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
+                                 var url = url.replace(pattern1, replacement);
+                              }
+
+
+                              if(pattern2.test(url)){
+                                    var replacement = '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
+                                    var url = url.replace(pattern2, replacement);
+                              }
+
+
+                              if(pattern3.test(url)){
+                                  var replacement = '<a href="$1" target="_blank"><img class="sml" src="$1" /></a><br />';
+                                  var url = url.replace(pattern3, replacement);
+                              }
+                              return url;
+
+                          }
+
+
+
+                          converMedia(url)
+                        var videoEmbed =  converMedia(url)
                         // create the HTML
 
                         // for all options see: http://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
                         // maxresdefault.jpg seems to be undefined on some.
 
                         // var iframe = '<iframe name="google-disable-x-frame-options" src="'+ url +'"></iframe>';
-
-                        var iframe = url;
+                        // console.log(videoEmbed);
+                        // var iframe = url;
                         /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
                         if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
                             // due to differences in implementation between FireFox and Chrome, we must move the
@@ -1061,7 +1089,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                             taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
                         }
                         // insert
-                        return this.$editor().wrapSelection('insertHTML', iframe, true);
+                        return this.$editor().wrapSelection('insertHTML', videoEmbed, true);
                         // return this.$editor().wrapSelection('insertHTML', iframe, true);
                     }
             }
