@@ -247,7 +247,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
     },
     insertVideo: {
         tooltip: 'Insert video',
-        dialogPrompt: 'Please enter a youtube URL to embed'
+        dialogPrompt: 'Please enter the url for the (youtube or vimeo) vidoe you want to embed'
     },
     insertLink: {
         tooltip: 'Insert / edit link',
@@ -941,9 +941,9 @@ angular.module('textAngularSetup', ["ngMaterial"])
     };
 
 
-            $scope.getImageUrl = function(url, title) {
+            $scope.getImageUrl = function(id, title) {
 
-              var imageLink = url;
+              var imageLink = id;
               // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
               // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
               /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
@@ -964,6 +964,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // Investigation reveals that Firefox only inserts a <p> only!!!!
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
+                var imgTag = '<img src="' +  + '"'
                 var embed = '<media class="' + title + '" id="'+ imageLink + '"></media>';
                  $mdDialog.hide();
                 return thisTest.$editor().wrapSelection('insertHTML', embed, true);
@@ -1031,14 +1032,14 @@ angular.module('textAngularSetup', ["ngMaterial"])
     //     }
     // });
     taRegisterTool('insertVideo', {
-        iconclass: 'fab fa-youtube',
+        iconclass: 'fas fa-video',
         tooltiptext: taTranslations.insertVideo.tooltip,
         action: function(){
             var url;
             url = $window.prompt(taTranslations.insertVideo.dialogPrompt, 'https://');
             // block javascript here
             /* istanbul ignore else: if it's javascript don't worry - though probably should show some kind of error message */
-            if (!blockJavascript(url)) {
+            // if (!blockJavascript(url)) {
 
                     /* istanbul ignore else: if it's invalid don't worry - though probably should show some kind of error message */
                     if (url) {
@@ -1092,7 +1093,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                         return this.$editor().wrapSelection('insertHTML', videoEmbed, true);
                         // return this.$editor().wrapSelection('insertHTML', iframe, true);
                     }
-            }
+            // }
         },
         onElementSelect: {
             element: 'img',
