@@ -932,8 +932,8 @@ angular.module('textAngularSetup', ["ngMaterial"])
                   }
                 }));
               };
-                          $scope.select = function(item) {
-      $scope.selected = item;
+          $scope.select = function(item) {
+          $scope.selected = item;
     };
 
     $scope.isActive = function(item) {
@@ -964,13 +964,12 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // Investigation reveals that Firefox only inserts a <p> only!!!!
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
-                var imgTag = '<img src="' +  + '"'
-                var embed = '<media class="' + title + '" id="'+ imageLink + '"></media>';
-                 $mdDialog.hide();
-                return thisTest.$editor().wrapSelection('insertHTML', embed, true);
+                // var imgTag = '<img src="' +  + '"'
+                var embed = '<media class="' + title + '" id="'+ imageLink + '"></media><p class="displayNone">Wilf Zaha<br></p><p><br></p>';
+                thisTest.$editor().wrapSelection('insertHTML', embed, true);
+                return  $mdDialog.hide();
               }
               // }
-
             }
           }
         },
@@ -1045,9 +1044,9 @@ angular.module('textAngularSetup', ["ngMaterial"])
                     if (url) {
 
                            function converMedia(url){
+
                               var pattern1 = /(?:http?s?:\/\/)?(?:www\.)?(?:vimeo\.com)\/?(.+)/g;
                               var pattern2 = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
-                              var pattern3 = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(?:jpg|jpeg|gif|png))/gi;
 
                               if(pattern1.test(url)){
                                  var replacement = '<iframe width="560" height="315" src="//player.vimeo.com/video/$1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
@@ -1055,19 +1054,11 @@ angular.module('textAngularSetup', ["ngMaterial"])
                                  var url = url.replace(pattern1, replacement);
                               }
 
-
                               if(pattern2.test(url)){
                                     var replacement = '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
                                     var url = url.replace(pattern2, replacement);
                               }
-
-
-                              if(pattern3.test(url)){
-                                  var replacement = '<a href="$1" target="_blank"><img class="sml" src="$1" /></a><br />';
-                                  var url = url.replace(pattern3, replacement);
-                              }
                               return url;
-
                           }
 
 
