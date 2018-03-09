@@ -886,12 +886,15 @@ angular.module('textAngularSetup', ["ngMaterial"])
           var thisTest = this;
 
           function DialogController($scope, $mdDialog, Category, $timeout, $filter, Media) {
-            Media.getAllMediaForArticle()
+
+
+            Media.getAllMedia()
             .then(function(response) {
               var data = response.data.data;
               var error = response.data.errors;
               if(error === undefined && data !== null) {
                 $scope.media = data.mediaRead.data;
+                $scope.totalElements = data.mediaRead.totalElements;
                 $scope.totalPages = []
                 for (i = 1; i < data.mediaRead.totalPages + 1; i++) {
                   $scope.totalPages.push(i);
@@ -903,6 +906,29 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 });
               }
             });
+
+            $scope.getMediaBySearch = function (filterTerm) {
+              var yoyo = angular.lowercase(filterTerm);
+              Media.getMediaBySearch(yoyo)
+              .then((function(response) {
+                var data = response.data.data;
+                var error = response.data.errors;
+                if(error === undefined && data !== null) {
+                  $scope.media = data.mediaRead.data;
+                  $scope.totalElements = data.mediaRead.totalElements;
+                  $scope.totalPages = []
+                  for (i = 1; i < data.mediaRead.totalPages + 1; i++) {
+                    $scope.totalPages.push(i);
+                  }
+                } else {
+                  ngDialog.open({
+                    template: error[0].message,
+                    plain: true
+                  });
+                }
+            }))
+          }
+
 
             $scope.hide = function() {
               $mdDialog.hide();
