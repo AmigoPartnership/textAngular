@@ -991,7 +991,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
                 // var imgTag = '<img src="' +  + '"'
-                var embed = '<media class="' + title + '" id="'+ imageLink + '"></media><p class="displayNone">Wilf Zaha<br></p><p><br></p>';
+                var embed = '<media class="' + title + '" id="'+ imageLink + '"></media> <p class="displayNone">.<br/></p> <p><br></p>';
                 thisTest.$editor().wrapSelection('insertHTML', embed, true);
                 return  $mdDialog.hide();
               }
