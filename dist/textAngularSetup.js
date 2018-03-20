@@ -486,8 +486,14 @@ angular.module('textAngularSetup', ["ngMaterial"])
         iconclass: 'fas fa-eye-dropper',
         tooltiptext: taTranslations.classBlue.tooltip,
         action: function(){
+          var selection = this.$editor().innerHTML;
           var blueClass = "color-o2-light-blue"
+
+          if (selection.includes(blueClass)) {
+            return this.$editor().wrapSelection("formatBlock", "<p>");
+          } else {
             return this.$editor().wrapSelection("formatBlock", "<p class="+ blueClass +">");
+          }
         },
         activeState: function(){ return this.$editor().queryFormatBlockState('blueClass'); }
     });
@@ -1069,7 +1075,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                     /* istanbul ignore else: if it's invalid don't worry - though probably should show some kind of error message */
                     if (url) {
 
-                           function converMedia(url){
+                           function convertMedia(url){
 
                               var pattern1 = /(?:http?s?:\/\/)?(?:www\.)?(?:vimeo\.com)\/?(.+)/g;
                               var pattern2 = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
@@ -1081,7 +1087,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
                               }
 
                               if(pattern2.test(url)){
-                                    var replacement = '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
+                                    var replacement = '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
                                     var url = url.replace(pattern2, replacement);
                               }
                               return url;
@@ -1089,8 +1095,8 @@ angular.module('textAngularSetup', ["ngMaterial"])
 
 
 
-                          converMedia(url)
-                        var videoEmbed =  converMedia(url)
+                          convertMedia(url)
+                        var videoEmbed =  convertMedia(url)
                         // create the HTML
 
                         // for all options see: http://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
