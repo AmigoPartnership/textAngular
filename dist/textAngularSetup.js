@@ -486,7 +486,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
         iconclass: 'fas fa-eye-dropper',
         tooltiptext: taTranslations.classBlue.tooltip,
         action: function(){
-          var selection = this.$editor().innerHTML;
+          var selection = this.$editor().html;
           var blueClass = "color-o2-light-blue"
 
           if (selection.includes(blueClass)) {
