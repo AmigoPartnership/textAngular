@@ -997,12 +997,47 @@ angular.module('textAngularSetup', ["ngMaterial"])
                 // So now we use insertHTML here and all is fine.
                 // NOTE: this is what 'insertImage' is supposed to do anyway!
                 // var imgTag = '<img src="' +  + '"'
-                var embed = '<media class="' + title + '" id="'+ imageLink + '"></media> <p class="displayNone">.<br/></p> <p><br></p>';
+                var embed = ' <p class="displayNone">.<br/></p> <media class="' + title + '" id="'+ imageLink + '"></media> <p class="displayNone">.<br/></p> <p><br></p>';
                 thisTest.$editor().wrapSelection('insertHTML', embed, true);
                 return  $mdDialog.hide();
               }
-              // }
             }
+
+// https://github.com/textAngular/textAngular/issues/1204#issuecomment-375313659
+  //JAKE THIS IS THE BLOB FUNCTION BELOW FRONT END FUNCTION HAS THE CORRECT PARAMETERS
+            // $scope.getImageUrl = function(id, title, $event) {
+            //   var httpSrc = $event.delegateTarget.innerHTML;
+            //   var imageId = id;
+            //   // imageId = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
+            //   // if(imageId && imageId !== '' && imageId !== 'http://'){
+            //   /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
+            //   // block javascript here
+            //   if (!blockJavascript(imageId, title, httpSrc)) {
+            //     if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
+            //       // due to differences in implementation between FireFox and Chrome, we must move the
+            //       // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
+            //       // With this change, both FireFox and Chrome behave the same way!
+            //       taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
+            //     }
+            //     // In the past we used the simple statement:
+            //     //return this.$editor().wrapSelection('insertImage', imageId, true);
+            //     //
+            //     // However on Firefox only, when the content is empty this is a problem
+            //     // See Issue #1201
+            //     // Investigation reveals that Firefox only inserts a <p> only!!!!
+            //     // So now we use insertHTML here and all is fine.
+            //     // NOTE: this is what 'insertImage' is supposed to do anyway!
+            //     // var imgTag = '<img src="' +  + '"'
+            //     var embed = ' ' + httpSrc + '<p><media path="media" class="' + title + '" id="'+ imageId + '"></media></p>';
+            //     //
+            //     // var embed = '<p><media path="media" class="' + title + '" id="'+ imageId + '"></media></p>';
+            //     thisTest.$editor().wrapSelection('insertHTML', embed, true);
+            //     return  $mdDialog.hide();
+            //   }
+            // }
+
+
+
           }
         },
         onElementSelect: {
