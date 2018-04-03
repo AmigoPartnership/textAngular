@@ -445,7 +445,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
     // You can disable this check by setting taOptions.textAngularSanitize == false
     var gv = {}; $sanitize('', gv);
     /* istanbul ignore next, throws error */
-    if ((taOptions.forceTextAngularSanitize===true) && (gv.version !== 'taSanitize')) {
+    if ((taOptions.forceTextAngularSanitize === true) && (gv.version !== 'taSanitize')) {
         throw angular.$$minErr('textAngular')("textAngularSetup", "The textAngular-sanitize provider has been replaced by another -- have you included angular-sanitize by mistake?");
     }
     taRegisterTool("html", {
@@ -486,10 +486,9 @@ angular.module('textAngularSetup', ["ngMaterial"])
         iconclass: 'fas fa-eye-dropper',
         tooltiptext: taTranslations.classBlue.tooltip,
         action: function(){
-          var selection = this.$editor().html;
-          var blueClass = "color-o2-light-blue"
-
-          if (selection.includes(blueClass)) {
+          var selection = window.getSelection().anchorNode.parentNode;
+          var blueClass = "color-o2-light-blue";
+          if (selection.classList.contains(blueClass)) {
             return this.$editor().wrapSelection("formatBlock", "<p>");
           } else {
             return this.$editor().wrapSelection("formatBlock", "<p class="+ blueClass +">");
