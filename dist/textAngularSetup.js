@@ -247,7 +247,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
     },
     insertVideo: {
         tooltip: 'Insert video',
-        dialogPrompt: 'Please enter the url for the (youtube or vimeo) vidoe you want to embed'
+        dialogPrompt: 'Please enter the url for the (youtube or vimeo) video you want to embed'
     },
     insertLink: {
         tooltip: 'Insert / edit link',
