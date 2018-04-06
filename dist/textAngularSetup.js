@@ -490,10 +490,8 @@ angular.module('textAngularSetup', ["ngMaterial"])
           var blueClass = "color-o2-light-blue";
 
           if (selection.classList.contains(blueClass)) {
-            console.log('true');
             return this.$editor().wrapSelection("formatBlock", "<p>");
           } else {
-              console.log('false');
             return this.$editor().wrapSelection("formatBlock", "<p class="+ blueClass +">");
           }
         },
