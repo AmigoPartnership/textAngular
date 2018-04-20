@@ -515,7 +515,7 @@ function(taRegisterTool, $window, taTranslations, taSelection, taToolFunctions, 
     activeState: function(){ return this.$editor().queryCommandState('insertUnorderedList'); }
   });
   taRegisterTool('ol', {
-    iconclass: 'fa fa-list-ol',
+    iconclass: 'fas fa-list-ol',
     tooltiptext: taTranslations.ol.tooltip,
     action: function(){
       return this.$editor().wrapSelection("insertOrderedList", null);
@@ -879,7 +879,7 @@ var blockJavascript = function (link) {
 };
 
 taRegisterTool('insertImage', {
-  iconclass: 'fa fa-image',
+  iconclass: 'fas fa-images',
   tooltiptext: taTranslations.insertImage.tooltip,
   action: function(){
     $mdDialog.show({
