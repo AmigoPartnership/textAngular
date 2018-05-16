@@ -238,7 +238,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
         tooltip: 'Clear formatting'
     },
     classBlue: {
-        tooltip: 'Paragraph'
+        tooltip: 'Blue Text Color'
     },
     insertImage: {
         dialogPrompt: 'Please enter an image URL to insert',
