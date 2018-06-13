@@ -884,7 +884,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
         action: function(){
           $mdDialog.show({
             controller: DialogController,
-            templateUrl: 'js/views/articles/insertImage.tmpl.html',
+            templateUrl: 'js/views/pages/insertImage.tmpl.html',
             parent: angular.element(document.body),
             clickOutsideToClose: true
           })
