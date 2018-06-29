@@ -376,7 +376,11 @@ function htmlParser(html, handler) {
 
   // Clean up any remaining tags
   parseEndTag();
-
+	
+  angular.lowercase = function(text) {
+    text.toLowerCase();
+  };	
+	
   function parseStartTag(tag, tagName, rest, unary) {
     tagName = angular.lowercase(tagName);
     if (blockElements[ tagName ]) {
