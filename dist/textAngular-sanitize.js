@@ -376,13 +376,10 @@ function htmlParser(html, handler) {
 
   // Clean up any remaining tags
   parseEndTag();
-	
-  angular.lowercase = function(text) {
-    text.toLowerCase();
-  };	
-	
+
+
   function parseStartTag(tag, tagName, rest, unary) {
-    tagName = angular.lowercase(tagName);
+    tagName = tagName.toLowerCase();
     if (blockElements[ tagName ]) {
       while (stack.last() && inlineElements[ stack.last() ]) {
         parseEndTag("", stack.last());
@@ -414,7 +411,7 @@ function htmlParser(html, handler) {
 
   function parseEndTag(tag, tagName) {
     var pos = 0, i;
-    tagName = angular.lowercase(tagName);
+    tagName = tagName.toLowerCase();
     if (tagName)
       // Find the closest opened tag of the same type
       for (pos = stack.length - 1; pos >= 0; pos--)
@@ -520,8 +517,8 @@ function validStyles(styleAttr){
 	angular.forEach(styleArray, function(value){
 		var v = value.split(':');
 		if(v.length == 2){
-			var key = trim(angular.lowercase(v[0]));
-			var value = trim(angular.lowercase(v[1]));
+			var key = trim(v[0].toLowerCase());
+			var value = trim(v[1].toLowerCase());
 			if(
 				(key === 'color' || key === 'background-color') && (
 					value.match(/^rgb\([0-9%,\. ]*\)$/i)
@@ -625,7 +622,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
   var out = angular.bind(buf, buf.push);
   return {
     start: function(tag, attrs, unary) {
-      tag = angular.lowercase(tag);
+      tag = tag.toLowerCase();
       if (!ignore && specialElements[tag]) {
         ignore = tag;
       }
@@ -633,7 +630,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
         out('<');
         out(tag);
         angular.forEach(attrs, function(value, key) {
-          var lkey=angular.lowercase(key);
+          var lkey = key.toLowerCase();
           var isImage=(tag === 'img' && lkey === 'src') || (lkey === 'background');
           if ((lkey === 'style' && (value = validStyles(value)) !== '') || validCustomTag(tag, attrs, lkey, value) || validAttrs[lkey] === true &&
             (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
@@ -654,7 +651,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
       out(encodeEntities(ws));
     },
     end: function(tag) {
-        tag = angular.lowercase(tag);
+        tag = tag.toLowerCase();
         if (!ignore && validElements[tag] === true) {
           out('</');
           out(tag);
