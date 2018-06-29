@@ -375,11 +375,15 @@ function htmlParser(html, handler) {
   }
 
   // Clean up any remaining tags
-  parseEndTag();
+  function toLowerCase(text) {
+    return text.toLowerCase();
+  }
+
+  // parseEndTag();
 
 
   function parseStartTag(tag, tagName, rest, unary) {
-    tagName = tagName.toLowerCase();
+    tagName = toLowerCase(tagName);
     if (blockElements[ tagName ]) {
       while (stack.last() && inlineElements[ stack.last() ]) {
         parseEndTag("", stack.last());
@@ -409,9 +413,13 @@ function htmlParser(html, handler) {
     if (handler.start) handler.start(tagName, attrs, unary);
   }
 
+  function toLowerCase(text) {
+    return text.toLowerCase();
+  }
+
   function parseEndTag(tag, tagName) {
     var pos = 0, i;
-    tagName = tagName.toLowerCase();
+     tagName = toLowerCase(tagName);
     if (tagName)
       // Find the closest opened tag of the same type
       for (pos = stack.length - 1; pos >= 0; pos--)
