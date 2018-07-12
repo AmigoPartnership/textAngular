@@ -914,8 +914,8 @@ taRegisterTool('insertImage', {
       });
 
       $scope.getMediaBySearch = function (filterTerm) {
-        var yoyo = angular.lowercase(filterTerm);
-        Media.getMediaBySearch(yoyo)
+        filterTerm = filterTerm.toLowerCase();
+        Media.getMediaBySearch(filterTerm)
         .then((function(response) {
           var data = response.data.data;
           var error = response.data.errors;
