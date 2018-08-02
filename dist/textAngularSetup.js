@@ -914,7 +914,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
             });
 
             $scope.getMediaBySearch = function (filterTerm) {
-              var yoyo = angular.lowercase(filterTerm);
+              var yoyo = filterTerm.toLowerCase();
               Media.getMediaBySearch(yoyo)
               .then((function(response) {
                 var data = response.data.data;
