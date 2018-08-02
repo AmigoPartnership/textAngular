@@ -894,7 +894,7 @@ angular.module('textAngularSetup', ["ngMaterial"])
           function DialogController($scope, $mdDialog, Category, $timeout, $filter, Media) {
 
 
-            Media.getAllMedia()
+            Media.getAllMedia(30)
             .then(function(response) {
               var data = response.data.data;
               var error = response.data.errors;
