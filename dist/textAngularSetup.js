@@ -486,7 +486,7 @@ function(taRegisterTool, $window, taTranslations, taSelection, taToolFunctions, 
     iconclass: 'fas fa-eye-dropper',
     tooltiptext: taTranslations.classBlue.tooltip,
     action: function(){
-      var selection = window.getSelection().anchorNode.parentNode;
+      var selection = window.getSelection().anchorNode;
       var blueClass = "color-o2-light-blue";
 
       if (selection.classList.contains(blueClass)) {
