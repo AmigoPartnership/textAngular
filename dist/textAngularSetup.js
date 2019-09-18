@@ -972,37 +972,35 @@ taRegisterTool('insertImage', {
         return $scope.selected === item;
       };
 
+        $scope.getImageUrl = function(url) {
+              var imageLink = url;
+              // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
+              // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
+              /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
+              // block javascript here
+              if (!blockJavascript(imageLink)) {
+                console.log('here');
+                if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
+                  // due to differences in implementation between FireFox and Chrome, we must move the
+                  // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
+                  // With this change, both FireFox and Chrome behave the same way!
+                  taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
+                }
+                // In the past we used the simple statement:
+                //return this.$editor().wrapSelection('insertImage', imageLink, true);
+                //
+                // However on Firefox only, when the content is empty this is a problem
+                // See Issue #1201
+                // Investigation reveals that Firefox only inserts a <p> only!!!!
+                // So now we use insertHTML here and all is fine.
+                // NOTE: this is what 'insertImage' is supposed to do anyway!
+                var embed = '<img class="img-responsive" src="' + imageLink + '">';
+                $mdDialog.hide();
+                return thisTest.$editor().wrapSelection('insertHTML', embed, true);
+              }
+              // }
 
-      $scope.getImageUrl = function(id, title) {
-        console.log(id, title);
-        // return;
-        var imageLink = id;
-        // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
-        // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
-        /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
-        // block javascript here
-        // if (!blockJavascript(imageLink, title)) {
-
-          if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
-            // due to differences in implementation between FireFox and Chrome, we must move the
-            // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
-            // With this change, both FireFox and Chrome behave the same way!
-            taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
-          }
-          // In the past we used the simple statement:
-          //return this.$editor().wrapSelection('insertImage', imageLink, true);
-          //
-          // However on Firefox only, when the content is empty this is a problem
-          // See Issue #1201
-          // Investigation reveals that Firefox only inserts a <p> only!!!!
-          // So now we use insertHTML here and all is fine.
-          // NOTE: this is what 'insertImage' is supposed to do anyway!
-          // var imgTag = '<img src="' +  + '"'
-          var embed = ' <p class="displayNone">.<br/></p> <media class="' + title + '" id="'+ imageLink + '"></media> <p class="displayNone">.<br/></p> <p><br></p>';
-          thisTest.$editor().wrapSelection('insertHTML', embed, true);
-          return  $mdDialog.hide();
-        // }
-      }
+            }
 
       // https://github.com/textAngular/textAngular/issues/1204#issuecomment-375313659
       //JAKE THIS IS THE BLOB FUNCTION BELOW FRONT END FUNCTION HAS THE CORRECT PARAMETERS
