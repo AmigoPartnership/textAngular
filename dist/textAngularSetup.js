@@ -1,4 +1,3 @@
-
 // tests against the current jqLite/jquery implementation if this can be an element
 function validElementString(string){
   try{
@@ -783,7 +782,6 @@ function(taRegisterTool, $window, taTranslations, taSelection, taToolFunctions, 
   /* jshint -W099 */
   /****************************
   //  we don't use this code - since the previous way CLEAR is expected to work does not clear partially selected <li>
-
   var removeListElement = function(listE){
   console.log(listE);
   var _list = listE.parentNode.childNodes;
@@ -801,7 +799,6 @@ newElem.html(angular.element(listE).html());
 if (_preLis.length === 0 || _postLis.length === 0) {
 if (_postLis.length === 0) _parent.after(newElem);
 else _parent[0].parentNode.insertBefore(newElem[0], _parent[0]);
-
 if (_preLis.length === 0 && _postLis.length === 0) _parent.remove();
 else angular.element(listE).remove();
 } else {
@@ -816,7 +813,6 @@ _parent.remove();
 }
 taSelection.setSelectionToElementEnd(newElem[0]);
 };
-
 elementsSeen = [];
 if (selectedElements.length !==0) console.log(selectedElements);
 angular.forEach(selectedElements, function (element) {
@@ -852,7 +848,6 @@ newElem.html(angular.element(possibleNodes[0]).html());
 if(_preLis.length === 0 || _postLis.length === 0){
 if(_postLis.length === 0) _parent.after(newElem);
 else _parent[0].parentNode.insertBefore(newElem[0], _parent[0]);
-
 if(_preLis.length === 0 && _postLis.length === 0) _parent.remove();
 else angular.element(possibleNodes[0]).remove();
 }else{
@@ -891,7 +886,7 @@ taRegisterTool('insertImage', {
 
     var thisTest = this;
 
-    function DialogController($scope, $mdDialog, Category, $timeout, $filter, Media) {
+    function DialogController($scope, $mdDialog, Category, $timeout, $filter, Media, ngDialog) {
 
 
       Media.getAllMedia(50)
@@ -972,35 +967,34 @@ taRegisterTool('insertImage', {
         return $scope.selected === item;
       };
 
-        $scope.getImageUrl = function(url) {
-              var imageLink = url;
-              // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
-              // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
-              /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
-              // block javascript here
-              if (!blockJavascript(imageLink)) {
-                console.log('here');
-                if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
-                  // due to differences in implementation between FireFox and Chrome, we must move the
-                  // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
-                  // With this change, both FireFox and Chrome behave the same way!
-                  taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
-                }
-                // In the past we used the simple statement:
-                //return this.$editor().wrapSelection('insertImage', imageLink, true);
-                //
-                // However on Firefox only, when the content is empty this is a problem
-                // See Issue #1201
-                // Investigation reveals that Firefox only inserts a <p> only!!!!
-                // So now we use insertHTML here and all is fine.
-                // NOTE: this is what 'insertImage' is supposed to do anyway!
-                var embed = '<img class="img-responsive" src="' + imageLink + '">';
-                $mdDialog.hide();
-                return thisTest.$editor().wrapSelection('insertHTML', embed, true);
-              }
-              // }
 
-            }
+      $scope.getImageUrl = function(url) {
+        // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
+        // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
+        /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
+        // block javascript here
+        // if (!blockJavascript(imageLink, title)) {
+
+          if (taSelection.getSelectionElement().tagName && taSelection.getSelectionElement().tagName.toLowerCase() === 'a') {
+            // due to differences in implementation between FireFox and Chrome, we must move the
+            // insertion point past the <a> element, otherwise FireFox inserts inside the <a>
+            // With this change, both FireFox and Chrome behave the same way!
+            taSelection.setSelectionAfterElement(taSelection.getSelectionElement());
+          }
+          // In the past we used the simple statement:
+          //return this.$editor().wrapSelection('insertImage', imageLink, true);
+          //
+          // However on Firefox only, when the content is empty this is a problem
+          // See Issue #1201
+          // Investigation reveals that Firefox only inserts a <p> only!!!!
+          // So now we use insertHTML here and all is fine.
+          // NOTE: this is what 'insertImage' is supposed to do anyway!
+          // var imgTag = '<img src="' +  + '"'
+          var embed = '<img src='+url+' alt="image">';
+          thisTest.$editor().wrapSelection('insertHTML', embed, true);
+          return  $mdDialog.hide();
+        // }
+      }
 
       // https://github.com/textAngular/textAngular/issues/1204#issuecomment-375313659
       //JAKE THIS IS THE BLOB FUNCTION BELOW FRONT END FUNCTION HAS THE CORRECT PARAMETERS
