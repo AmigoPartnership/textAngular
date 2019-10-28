@@ -969,6 +969,7 @@ taRegisterTool('insertImage', {
 
 
       $scope.getImageUrl = function(url) {
+        console.log('sdiufbsdiufbsidufhei');
         // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
         // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
         /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
