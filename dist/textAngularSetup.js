@@ -968,8 +968,7 @@ taRegisterTool('insertImage', {
       };
 
 
-      $scope.getImageUrl = function(url) {
-        console.log('sdiufbsdiufbsidufhei');
+      $scope.getImageUrl = function(media) {
         // imageLink = $window.prompt(taTranslations.insertImage.dialogPrompt, 'http:// woohoo here i am 2');
         // if(imageLink && imageLink !== '' && imageLink !== 'http://'){
         /* istanbul ignore next: don't know how to test this... since it needs a dialogPrompt */
@@ -991,7 +990,7 @@ taRegisterTool('insertImage', {
           // So now we use insertHTML here and all is fine.
           // NOTE: this is what 'insertImage' is supposed to do anyway!
           // var imgTag = '<img src="' +  + '"'
-          var embed = '<img src='+url+' alt="image">';
+          var embed = '<img src='+media.s3Url+' /> <p><br><media class='+ media.title +' id='+ media.id +'></media><br></p>';
           thisTest.$editor().wrapSelection('insertHTML', embed, true);
           return  $mdDialog.hide();
         // }
